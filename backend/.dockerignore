@@ -1,0 +1,16 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv
+.DS_Store
+*.log
+.pytest_cache
+.coverage
+.idea
+.vscode
+*.swp
+.git

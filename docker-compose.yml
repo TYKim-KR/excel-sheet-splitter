@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: excel-splitter-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_ENV: production
+      PYTHONUNBUFFERED: 1
+    volumes:
+      # 개발 환경: 코드 수정 시 자동 반영 (필요시)
+      # - ./backend:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  frontend:
+    container_name: excel-splitter-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://localhost:5000
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+# 사용 방법:
+# docker-compose up -d              # 백그라운드에서 실행
+# docker-compose logs -f            # 로그 확인
+# docker-compose down               # 컨테이너 중지 및 제거
+# docker-compose up --build         # 이미지 재빌드 및 실행
