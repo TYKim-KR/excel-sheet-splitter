@@ -1,4 +1,10 @@
 # 📊 Excel Sheet Splitter
+⚠️ **이 저장소는 보관용(archived)입니다. 더 이상 유지보수되지 않습니다.**
+
+브라우저에서만 동작하는 후속 도구로 대체되었습니다 → **https://work-helper-tools.vercel.app/excel-split/**
+파일을 서버로 업로드하지 않고, 시트 분리와 여러 워크북 병합을 모두 지원합니다.
+
+이 프로젝트가 배포되어 있던 `excel-sheet-splitter-1.onrender.com` 서비스는 2026-08-27에 종료되었습니다.
 
 엑셀 파일의 각 시트를 개별 파일로 분리하고 ZIP으로 다운로드하는 웹 애플리케이션입니다.
 
